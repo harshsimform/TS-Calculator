@@ -5,6 +5,22 @@ import {
   getAbsolute,
   getCeil,
   getFloor,
+  getCos,
+  getCot,
+  getCsc,
+  getSec,
+  getSine,
+  getTan,
+  getDeg,
+  getRand,
+  getPlusbyMinus,
+  getDegreesToDMS,
+  getFe,
+  memoryAddition,
+  memorySubtraction,
+  memoryStore,
+  memoryRecall,
+  memoryClear,
 } from "./utils/utils";
 
 // toggle button
@@ -178,11 +194,27 @@ tenPowx.addEventListener("click", function () {
   result.value = output;
 });
 
-// event listener to solve ten power x
+// event listener to solve e power x
 const ePowx: HTMLButtonElement = document.querySelector("#e_power_x")!;
 ePowx.addEventListener("click", function () {
   const userIp = (document.getElementById("result") as HTMLInputElement).value;
   const output = `e**${userIp}`;
+  result.value = output;
+});
+
+// event listener to solve exp
+const ePow: HTMLButtonElement = document.querySelector("#exp")!;
+ePow.addEventListener("click", function () {
+  const userIp = (document.getElementById("result") as HTMLInputElement).value;
+  const output = `e**${userIp}`;
+  result.value = output;
+});
+
+// event listener to solve 1/x
+const oneByX: HTMLButtonElement = document.querySelector("#one_by_x")!;
+oneByX.addEventListener("click", function () {
+  const userIp = (document.getElementById("result") as HTMLInputElement).value;
+  const output = `1/${userIp}`;
   result.value = output;
 });
 
@@ -201,6 +233,14 @@ threeRootXbtn.addEventListener("click", () => {
   const userInput = result.value;
   const calculatedValue = calculateCubeSqrt(userInput);
   result.value = calculatedValue;
+});
+
+// add Eventlistener to solve '+/-'
+const PlusbyMinus: HTMLButtonElement = document.querySelector(
+  "#addition_by_subtraction"
+)!;
+PlusbyMinus.addEventListener("click", () => {
+  getPlusbyMinus(result);
 });
 
 // add Eventlistener to solve absolute
@@ -230,4 +270,104 @@ roundx.addEventListener("click", () => {
   const userInput = result.value;
   const calculatedValue = getAbsolute(userInput);
   result.value = calculatedValue;
+});
+
+// add Eventlistener to solve sin
+const sinBtn = document.getElementById("sin")!;
+sinBtn.addEventListener("click", () => {
+  getSine(result.value);
+});
+
+// add Eventlistener to solve cos
+const cosBtn = document.getElementById("cos")!;
+cosBtn.addEventListener("click", () => {
+  getCos(result.value);
+});
+
+// add Eventlistener to solve tan
+const tanBtn = document.getElementById("tan")!;
+tanBtn.addEventListener("click", () => {
+  getTan(result.value);
+});
+
+// add Eventlistener to solve sec
+const secBtn = document.getElementById("sec")!;
+secBtn.addEventListener("click", () => {
+  getSec(result.value);
+});
+
+// add Eventlistener to solve cosec
+const cscBtn = document.getElementById("csc")!;
+cscBtn.addEventListener("click", () => {
+  getCsc(result.value);
+});
+
+// add Eventlistener to solve cot
+const cotBtn = document.getElementById("cot")!;
+cotBtn.addEventListener("click", () => {
+  getCot(result.value);
+});
+
+// add Eventlistener to generate random numbers
+const randBtn = document.getElementById("rand")!;
+randBtn.addEventListener("click", () => {
+  getRand(result);
+});
+
+// add Eventlistener to get degree
+const degBtn = document.getElementById("btnDeg")!;
+degBtn.addEventListener("click", () => {
+  getDeg(result.value);
+});
+
+// add Eventlistener for dms
+const dmsBtn = document.getElementById("dms")!;
+dmsBtn.addEventListener("click", () => {
+  getDegreesToDMS(result.value);
+});
+
+// add EventListener for f-e
+const fixedtoExponent = document.getElementById("fe")!;
+fixedtoExponent.addEventListener("click", () => {
+  getFe(result.value);
+});
+
+// Memory buttons Eventlistener
+// Memory store functionality
+let memoryStoreBtn = document.getElementById("memoryStore")!;
+memoryStoreBtn.addEventListener("click", () => {
+  if (result.value != "") {
+    (document.getElementById("memoryClear") as HTMLButtonElement).disabled =
+      false;
+    (document.getElementById("memoryRecall") as HTMLButtonElement).disabled =
+      false;
+  }
+  memoryStore(result);
+});
+
+// Memory clear functionality
+let memoryClearBtn: HTMLButtonElement = document.querySelector("#memoryClear")!;
+memoryClearBtn.addEventListener("click", () => {
+  (document.getElementById("memoryClear") as HTMLButtonElement).disabled = true;
+  (document.getElementById("memoryRecall") as HTMLButtonElement).disabled =
+    true;
+  memoryClear();
+});
+
+// Memory recall functionality
+let memoryRecallBtn = document.getElementById("memoryRecall")!;
+memoryRecallBtn.addEventListener("click", () => {
+  memoryRecall(result);
+});
+
+// Memory addition functionality
+let memoryAdditionBtn = document.getElementById("memoryPlus")!;
+memoryAdditionBtn.addEventListener("click", () => {
+  memoryAddition(result);
+});
+
+// Memory subtraction functionality
+let memorySubtractBtn = document.getElementById("memoryMinus")!;
+memorySubtractBtn.addEventListener("click", () => {
+  memorySubtraction(result);
 });
