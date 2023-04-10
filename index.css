@@ -1,0 +1,263 @@
+* {
+  padding: 0;
+  margin: 0;
+  box-sizing: border-box;
+}
+
+.memory {
+  margin-left: 15px;
+  color: #a8a8a8;
+}
+
+#memoryShow {
+  margin-left: 3px;
+}
+
+.calculator_box {
+  height: 100vh;
+  width: 100vw;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.main {
+  border: 1px solid #f5f5f5;
+  height: auto;
+  width: 383px;
+  background-color: #f0f0f0;
+}
+
+.main .all_btn {
+  margin-top: 5px;
+  margin-left: 3px;
+}
+
+.all_btn div {
+  margin: 5px 0 5px 0;
+}
+
+.result {
+  height: 100px;
+}
+
+input[type="text"] {
+  font-size: 28px;
+  font-weight: 500;
+  text-align: end;
+  border: none;
+  outline: none;
+  background-color: #f0f0f0;
+}
+
+button[type="submit"] {
+  width: 70px;
+  height: 40px;
+  margin-left: 4px;
+  margin-top: -2px;
+  border-radius: 5px;
+  border: 1px solid #e0e0e0;
+  background-color: #f0f0f0;
+}
+
+.sub_container .sub_btn_container button:nth-child(n + 3):nth-child(-n + 5) {
+  background-color: white;
+}
+
+.math_functions button:nth-child(2) {
+  margin-left: 0px;
+}
+
+.sub_btn_container button:nth-child(3) {
+  margin-left: 0px;
+}
+
+/* .sub_btn_container {
+	display: inline;
+} */
+
+.dropdown_btn button {
+  width: 145px;
+}
+
+.deg_fe button,
+.dropdown_btn button,
+.memory_function button {
+  border: none;
+  background-color: #f0f0f0;
+}
+
+button[type="submit"]:hover {
+  background-color: #f5f5f5;
+}
+
+button[type="submit"]:focus {
+  outline: none;
+}
+
+.arrow {
+  width: 0.5em;
+  height: 0.5em;
+  display: inline-block;
+  vertical-align: middle;
+  border-left: 0.16em solid currentColor;
+  border-bottom: 0.16em solid currentColor;
+  transform: rotate(-45deg);
+  margin-left: 9px;
+  margin-top: -4px;
+  transition: transform 100ms ease-in-out;
+}
+
+/* toggle button class */
+.hidden {
+  display: none;
+}
+
+/* Function button dropdown */
+/* .dropbtn,
+.dropbtn1 {
+	font-size: 16px;
+	border: none;
+	cursor: pointer;
+}
+
+.dropdown,
+.dropdown1 {
+	position: relative;
+	display: inline-block;
+}
+
+.dropdown_content,
+.dropdown_content1 {
+	display: none;
+	position: absolute;
+	background-color: #f0f0f0;
+	min-width: 70px;
+	min-height: 215px;
+	box-shadow: 0px 8px 16px 0px rgba(0, 0, 0, 0.2);
+	border-radius: 3px;
+	z-index: 1;
+	margin-top: -100px;
+}
+
+.dropdown_content button,
+.dropdown_content1 button {
+	color: black;
+	width: 60px;
+	height: 30px;
+	border: none;
+	outline: none;
+	display: block;
+	margin: auto;
+	margin-top: 5px;
+	border: 1px solid #e0e0e0;
+	border-radius: 5px;
+	background-color: white;
+}
+
+.dropdown_content button:hover,
+.dropdown_content1 button:hover {
+	background-color: #f5f5f5;
+} */
+
+/* .dropbtn:focus .dropdown_content {
+	display: block;
+} */
+
+.dropdown {
+  position: relative;
+  display: inline-block;
+}
+
+.dropdown button {
+  color: black;
+  /* padding: 10px; */
+  width: 160px;
+  margin-left: 0px;
+  font-size: 16px;
+  border: none;
+}
+
+.dropdown-content {
+  display: none;
+  position: absolute;
+  z-index: 1;
+  min-width: 150px;
+  /* margin-top: -10px; */
+}
+
+.dropdown-content button {
+  color: black;
+  margin-top: -1.5px;
+  margin-left: 4px;
+  /* padding: 10px; */
+  display: inline-block;
+  width: 30%;
+  height: 39px;
+  box-sizing: border-box;
+  background-color: white;
+  border: 1px solid #e0e0e0;
+}
+
+#myDropdownTrig,
+#myDropdownFunc {
+  height: 90px;
+  border: 1px solid #e0e0e0;
+  background-color: white;
+  border-radius: 5px;
+}
+
+/* #myDropdownFunc {
+	margin-left: -15px;
+} */
+
+.dropdown-content .row {
+  display: flex;
+}
+
+.row-2 {
+  margin-top: 10px;
+}
+
+.dropdown-content .row:last-child {
+  margin-bottom: 0;
+}
+
+.dropdown-content button:hover {
+  background-color: #f5f5f5;
+}
+
+/* .dropdown:hover .dropdown-content {
+	display: block;
+} */
+
+/* CSS Media Query */
+@media only screen and (max-width: 400px) {
+  .main {
+    width: 330px;
+  }
+
+  input[type="text"] {
+    width: 99%;
+  }
+
+  button[type="submit"] {
+    width: 60px;
+  }
+
+  .dropdown .dropbtn {
+    width: 150px;
+  }
+
+  .dropdown-content button {
+    width: 30%;
+  }
+
+  /* .dropdown_btn button {
+		width: 150px;
+	}
+	.dropdown_content button,
+	.dropdown_content1 button {
+		width: 60px;
+	} */
+}
