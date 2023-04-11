@@ -42,16 +42,16 @@ toggleButton.addEventListener("click", () => {
 });
 
 // show dropdown menu on Trigonimetry button click
-const dropbtnTrig: HTMLElement | null =
-  document.querySelector("#dropdownBtnTrig");
-const dropdownContentTrig: HTMLElement | null =
-  document.querySelector("#myDropdownTrig");
+const dropbtnTrig: HTMLButtonElement =
+  document.querySelector("#dropdownBtnTrig")!;
+const dropdownContentTrig: HTMLButtonElement =
+  document.querySelector("#myDropdownTrig")!;
 
 // show dropdown menu on Function button click
-const dropbtnFunc: HTMLElement | null =
-  document.querySelector("#dropdownBtnFunc");
-const dropdownContentFunc: HTMLElement | null =
-  document.querySelector("#myDropdownFunc");
+const dropbtnFunc: HTMLButtonElement =
+  document.querySelector("#dropdownBtnFunc")!;
+const dropdownContentFunc: HTMLButtonElement =
+  document.querySelector("#myDropdownFunc")!;
 
 if (dropbtnTrig && dropdownContentTrig) {
   dropbtnTrig.addEventListener("click", () => {
@@ -181,7 +181,7 @@ const result: HTMLInputElement = document.querySelector("#result")!;
 // event listener to solve two power x
 const twoPowx: HTMLButtonElement = document.querySelector("#two_power_X")!;
 twoPowx.addEventListener("click", function () {
-  const userIp = (document.getElementById("result") as HTMLInputElement).value;
+  const userIp = result.value;
   const output = `2**${userIp}`;
   result.value = output;
 });
@@ -189,7 +189,7 @@ twoPowx.addEventListener("click", function () {
 // event listener to solve ten power x
 const tenPowx: HTMLButtonElement = document.querySelector("#ten_power_x")!;
 tenPowx.addEventListener("click", function () {
-  const userIp = (document.getElementById("result") as HTMLInputElement).value;
+  const userIp = result.value;
   const output = `10**${userIp}`;
   result.value = output;
 });
@@ -197,7 +197,7 @@ tenPowx.addEventListener("click", function () {
 // event listener to solve e power x
 const ePowx: HTMLButtonElement = document.querySelector("#e_power_x")!;
 ePowx.addEventListener("click", function () {
-  const userIp = (document.getElementById("result") as HTMLInputElement).value;
+  const userIp = result.value;
   const output = `e**${userIp}`;
   result.value = output;
 });
@@ -205,7 +205,7 @@ ePowx.addEventListener("click", function () {
 // event listener to solve exp
 const ePow: HTMLButtonElement = document.querySelector("#exp")!;
 ePow.addEventListener("click", function () {
-  const userIp = (document.getElementById("result") as HTMLInputElement).value;
+  const userIp = result.value;
   const output = `e**${userIp}`;
   result.value = output;
 });
@@ -213,7 +213,7 @@ ePow.addEventListener("click", function () {
 // event listener to solve 1/x
 const oneByX: HTMLButtonElement = document.querySelector("#one_by_x")!;
 oneByX.addEventListener("click", function () {
-  const userIp = (document.getElementById("result") as HTMLInputElement).value;
+  const userIp = result.value;
   const output = `1/${userIp}`;
   result.value = output;
 });

@@ -1,6 +1,6 @@
 // function to calculate factorial and normal calculation
 export function calculate(input: string): void {
-  let result: HTMLInputElement | null = document.querySelector("#result");
+  let result: HTMLInputElement = document.querySelector("#result")!;
   if (result) {
     // check if the input includes the "!" symbol then perform factorial function
     if (input.includes("!")) {
@@ -8,28 +8,20 @@ export function calculate(input: string): void {
       // need for the type guard on resultFact, since we are immediately converting it to a string using the toString() method
       const resultFact = factorial(num).toString();
       // assign the calculated factorial value back to the input field
-      const resultElem: HTMLInputElement | null =
-        document.querySelector("#result");
+      const resultElem: HTMLInputElement = document.querySelector("#result")!;
       if (resultElem) {
         resultElem.value = resultFact;
       }
     } else if (input.includes("π") || input.includes("e")) {
       // Replace 'π' and 'e' with their corresponding numerical values
-      //   input = input.replaceAll(/(^|[-+*/])π/g, "$13.14159265359");
-      //   input = input.replaceAll(/(^|[-+*/])e/g, "$12.71828182846");
-      //   input = input.replaceAll(/π(?=\d)/g, "3.14159265359*");
-      //   input = input.replaceAll(/e(?=\d)/g, "2.71828182846*");
-      //   input = input.replaceAll(/(?<=\d|\.)π/g, "*3.14159265359");
-      //   input = input.replaceAll(/(?<=\d|\.)e/g, "*2.71828182846");
-      //   input = input.replaceAll(/π$/g, "*3.14159265359");
-      //   input = input.replaceAll(/e$/g, "*2.71828182846");
-      //---------------------------
-      input = input.replaceAll(/(^|[-+*/()])π/g, "$13.14159265359");
-      input = input.replaceAll(/(^|[-+*/()])e/g, "$12.71828182846");
-      input = input.replaceAll(/π(?=\d|\.|\()|π$/g, "3.14159265359*");
-      input = input.replaceAll(/e(?=\d|\.|\()|e$/g, "2.71828182846*");
-      input = input.replaceAll(/(?<=\d|\.)π|(?<=\))π/g, "*3.14159265359");
-      input = input.replaceAll(/(?<=\d|\.)e|(?<=\))e/g, "*2.71828182846");
+      input = input.replaceAll(/(^|[-+*/])π/g, "$13.14159265359");
+      input = input.replaceAll(/(^|[-+*/])e/g, "$12.71828182846");
+      input = input.replaceAll(/π(?=\d)/g, "3.14159265359*");
+      input = input.replaceAll(/e(?=\d)/g, "2.71828182846*");
+      input = input.replaceAll(/(?<=\d|\.)π/g, "*3.14159265359");
+      input = input.replaceAll(/(?<=\d|\.)e/g, "*2.71828182846");
+      input = input.replaceAll(/π$/g, "*3.14159265359");
+      input = input.replaceAll(/e$/g, "*2.71828182846");
 
       // Evaluate the expression
       try {
@@ -70,7 +62,7 @@ export function calculate(input: string): void {
     // else evaluate the input using the eval function
     else {
       // Replace double negative signs with a single positive sign
-      //   input = input.replace(/--/g, "+");
+      input = input.replace(/--/g, "+");
       // Evaluate expression using eval()
       try {
         const exprResult: number = eval(input);
@@ -345,14 +337,20 @@ function getMemoryValue() {
 
 // function for memory addition
 export function memoryAddition(input: HTMLInputElement) {
-  let showResult = (getMemoryValue() + parseInt(input.value)).toString();
-  document.getElementById("memoryShow")!.innerHTML = showResult;
+  const inputVal = parseInt(input.value);
+  if (!isNaN(inputVal)) {
+    let showResult = (getMemoryValue() + inputVal).toString();
+    document.getElementById("memoryShow")!.innerHTML = showResult;
+  }
 }
 
 // function for memory subtraction
 export function memorySubtraction(input: HTMLInputElement) {
-  let showResult = (getMemoryValue() - parseInt(input.value)).toString();
-  document.getElementById("memoryShow")!.innerHTML = showResult;
+  const inputVal = parseInt(input.value);
+  if (!isNaN(inputVal)) {
+    let showResult = (getMemoryValue() - inputVal).toString();
+    document.getElementById("memoryShow")!.innerHTML = showResult;
+  }
 }
 
 // function for memory recall
