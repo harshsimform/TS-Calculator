@@ -198,7 +198,7 @@ export function getCeil(input: string): string {
 }
 
 // function to toggle operand sign
-export function getPlusbyMinus(input: HTMLInputElement) {
+export function getPlusbyMinus(input: HTMLInputElement): void {
   let userStr: string = input.value.toString();
   if (userStr.charAt(0) === "-") {
     input.value = input.value.substring(1, input.value.length);
@@ -216,7 +216,10 @@ buttonOfUnit.addEventListener("click", () => {
 });
 
 // common function to calculate all Trigonometry functions
-function calculateTrigValue(input: string, trigFunc: (x: number) => number) {
+function calculateTrigValue(
+  input: string,
+  trigFunc: (x: number) => number
+): void {
   if (unitOfAngle === "RAD") {
     let radians: number = parseFloat(input);
     result.value = trigFunc(radians).toString();
@@ -275,12 +278,12 @@ export function getCot(input: string): void | never {
 }
 
 // function to generate random numbers
-export function getRand(input: HTMLInputElement) {
+export function getRand(input: HTMLInputElement): void {
   input.value = Math.random().toString();
 }
 
 // function to get degree
-export function getDeg(input: string) {
+export function getDeg(input: string): void {
   if (unitOfAngle === "RAD") {
     let deg: number = Number(input) * (180 / Math.PI);
     result.value = deg.toString();
@@ -290,7 +293,7 @@ export function getDeg(input: string) {
 }
 
 // function to get Degree to DMS
-export function getDegreesToDMS(input: string) {
+export function getDegreesToDMS(input: string): void {
   if (unitOfAngle === "DEG") {
     let d: number = Math.floor(Number(input));
     let m: number = Math.floor((Number(input) - d) * 60);
@@ -311,7 +314,7 @@ export function getDegreesToDMS(input: string) {
 }
 
 // function to get fixed to exponent
-export function getFe(input: string) {
+export function getFe(input: string): void {
   if (input == "" || input == "0") {
     input = "0";
   } else {
@@ -328,7 +331,7 @@ function getMemoryValue(): number {
 export function memoryOperation(
   input: HTMLInputElement,
   operation: "add" | "subtract"
-) {
+): void {
   const inputVal: number = parseInt(input.value);
   if (!isNaN(inputVal)) {
     let memoryVal: number = getMemoryValue();
@@ -349,7 +352,7 @@ export function memoryOperation(
   }
 }
 
-function updateMemoryButtons() {
+function updateMemoryButtons(): void {
   let memoryVal: HTMLElement = document.querySelector("#memoryShow")!;
   (document.getElementById("memoryClear") as HTMLButtonElement).disabled =
     memoryVal.innerHTML === "0";
@@ -358,18 +361,18 @@ function updateMemoryButtons() {
 }
 
 // function to store memory
-export function memoryStore(input: HTMLInputElement) {
+export function memoryStore(input: HTMLInputElement): void {
   document.getElementById("memoryShow")!.innerHTML = input.value || "0";
   updateMemoryButtons();
 }
 
 // function to clear memory
-export function memoryClear() {
+export function memoryClear(): void {
   document.getElementById("memoryShow")!.innerHTML = "" || "0";
   updateMemoryButtons();
 }
 
 // function for memory recall
-export function memoryRecall(input: HTMLInputElement) {
+export function memoryRecall(input: HTMLInputElement): void {
   input.value = document.getElementById("memoryShow")!.innerHTML;
 }
