@@ -16,11 +16,10 @@ import {
   getPlusbyMinus,
   getDegreesToDMS,
   getFe,
-  memoryAddition,
-  memorySubtraction,
-  memoryStore,
-  memoryRecall,
   memoryClear,
+  memoryOperation,
+  memoryRecall,
+  memoryStore,
 } from "./utils/utils";
 
 // toggle button
@@ -107,27 +106,25 @@ const arr: string[] = [
   "!",
 ];
 
+const result: HTMLInputElement = document.querySelector("#result")!;
+
 // display keyboard key on screen when keyboard numbers or operators click
 document.addEventListener("keydown", (event: KeyboardEvent) => {
   // console.log(event);
   if (arr.includes(event.key)) {
-    const result = document.getElementById("result") as HTMLInputElement;
     result.value += event.key;
   }
   if (event.key === "=") {
     try {
-      const result = document.getElementById("result") as HTMLInputElement;
       calculate(result.value);
       if (result.value === "") {
         result.value = "";
       }
     } catch (error) {
-      const result = document.getElementById("result") as HTMLInputElement;
       result.value = "Malformed Expression";
     }
   }
   if (event.key === "Backspace") {
-    const result = document.getElementById("result") as HTMLInputElement;
     result.value = result.value.slice(0, -1);
   }
   // prevent from Enter key pressing
@@ -145,11 +142,12 @@ for (let i = 0; i < numberButtons.length; i++) {
     "click",
     function (this: HTMLElement) {
       // Get the value of the clicked button
-      const buttonValue = this.getAttribute("value");
+      const buttonValue: string | null = this.getAttribute("value");
 
       // Get the current value of the input field
-      const result = (document.getElementById("result") as HTMLInputElement)
-        .value;
+      const result: string = (
+        document.getElementById("result") as HTMLInputElement
+      ).value;
 
       // Add the button value to the input field
       (document.getElementById("result") as HTMLInputElement).value =
@@ -163,8 +161,9 @@ const equalBtn = document.getElementById("eval");
 if (equalBtn) {
   equalBtn.addEventListener("click", () => {
     try {
-      const result = (document.getElementById("result") as HTMLInputElement)
-        .value;
+      const result: string = (
+        document.getElementById("result") as HTMLInputElement
+      ).value;
       calculate(result);
       if (result === "") {
         (document.getElementById("result") as HTMLInputElement).value = "";
@@ -176,53 +175,51 @@ if (equalBtn) {
   });
 }
 
-const result: HTMLInputElement = document.querySelector("#result")!;
-
 // event listener to solve two power x
 const twoPowx: HTMLButtonElement = document.querySelector("#two_power_X")!;
 twoPowx.addEventListener("click", function () {
-  const userIp = result.value;
-  const output = `2**${userIp}`;
+  const userIp: string = result.value;
+  const output: string = `2**${userIp}`;
   result.value = output;
 });
 
 // event listener to solve ten power x
 const tenPowx: HTMLButtonElement = document.querySelector("#ten_power_x")!;
 tenPowx.addEventListener("click", function () {
-  const userIp = result.value;
-  const output = `10**${userIp}`;
+  const userIp: string = result.value;
+  const output: string = `10**${userIp}`;
   result.value = output;
 });
 
 // event listener to solve e power x
 const ePowx: HTMLButtonElement = document.querySelector("#e_power_x")!;
 ePowx.addEventListener("click", function () {
-  const userIp = result.value;
-  const output = `e**${userIp}`;
+  const userIp: string = result.value;
+  const output: string = `e**${userIp}`;
   result.value = output;
 });
 
 // event listener to solve exp
 const ePow: HTMLButtonElement = document.querySelector("#exp")!;
 ePow.addEventListener("click", function () {
-  const userIp = result.value;
-  const output = `e**${userIp}`;
+  const userIp: string = result.value;
+  const output: string = `e**${userIp}`;
   result.value = output;
 });
 
 // event listener to solve 1/x
 const oneByX: HTMLButtonElement = document.querySelector("#one_by_x")!;
 oneByX.addEventListener("click", function () {
-  const userIp = result.value;
-  const output = `1/${userIp}`;
+  const userIp: string = result.value;
+  const output: string = `1/${userIp}`;
   result.value = output;
 });
 
 // add event listener to solve square root of x
 const rootXbtn: HTMLButtonElement = document.querySelector("#root_x")!;
 rootXbtn.addEventListener("click", () => {
-  const userInput = result.value;
-  const calculatedValue = calculateSqrt(userInput);
+  const userInput: string = result.value;
+  const calculatedValue: string = calculateSqrt(userInput);
   result.value = calculatedValue;
 });
 
@@ -230,8 +227,8 @@ rootXbtn.addEventListener("click", () => {
 const threeRootXbtn: HTMLButtonElement =
   document.querySelector("#cube_root_x")!;
 threeRootXbtn.addEventListener("click", () => {
-  const userInput = result.value;
-  const calculatedValue = calculateCubeSqrt(userInput);
+  const userInput: string = result.value;
+  const calculatedValue: string = calculateCubeSqrt(userInput);
   result.value = calculatedValue;
 });
 
@@ -245,129 +242,119 @@ PlusbyMinus.addEventListener("click", () => {
 
 // add Eventlistener to solve absolute
 document.querySelector("#x_abs")?.addEventListener("click", () => {
-  const userInput = result.value;
-  const calculatedValue = getAbsolute(userInput);
+  const userInput: string = result.value;
+  const calculatedValue: string = getAbsolute(userInput);
   result.value = calculatedValue;
 });
 
 // add Eventlistener to solve floor
 document.querySelector("#x_floor")?.addEventListener("click", () => {
-  const userInput = result.value;
-  const calculatedValue = getFloor(userInput);
+  const userInput: string = result.value;
+  const calculatedValue: string = getFloor(userInput);
   result.value = calculatedValue;
 });
 
 // add Eventlistener to solve ceil
 document.querySelector("#x_ceil")?.addEventListener("click", () => {
-  const userInput = result.value;
-  const calculatedValue = getCeil(userInput);
+  const userInput: string = result.value;
+  const calculatedValue: string = getCeil(userInput);
   result.value = calculatedValue;
 });
 
 // add Eventlistener to solve round
 const roundx: HTMLButtonElement = document.querySelector("#x_round")!;
 roundx.addEventListener("click", () => {
-  const userInput = result.value;
-  const calculatedValue = getAbsolute(userInput);
+  const userInput: string = result.value;
+  const calculatedValue: string = getAbsolute(userInput);
   result.value = calculatedValue;
 });
 
 // add Eventlistener to solve sin
-const sinBtn = document.getElementById("sin")!;
+const sinBtn: HTMLButtonElement = document.querySelector("#sin")!;
 sinBtn.addEventListener("click", () => {
   getSine(result.value);
 });
 
 // add Eventlistener to solve cos
-const cosBtn = document.getElementById("cos")!;
+const cosBtn: HTMLButtonElement = document.querySelector("#cos")!;
 cosBtn.addEventListener("click", () => {
   getCos(result.value);
 });
 
 // add Eventlistener to solve tan
-const tanBtn = document.getElementById("tan")!;
+const tanBtn: HTMLButtonElement = document.querySelector("#tan")!;
 tanBtn.addEventListener("click", () => {
   getTan(result.value);
 });
 
 // add Eventlistener to solve sec
-const secBtn = document.getElementById("sec")!;
+const secBtn: HTMLButtonElement = document.querySelector("#sec")!;
 secBtn.addEventListener("click", () => {
   getSec(result.value);
 });
 
 // add Eventlistener to solve cosec
-const cscBtn = document.getElementById("csc")!;
+const cscBtn: HTMLButtonElement = document.querySelector("#csc")!;
 cscBtn.addEventListener("click", () => {
   getCsc(result.value);
 });
 
 // add Eventlistener to solve cot
-const cotBtn = document.getElementById("cot")!;
+const cotBtn: HTMLButtonElement = document.querySelector("#cot")!;
 cotBtn.addEventListener("click", () => {
   getCot(result.value);
 });
 
 // add Eventlistener to generate random numbers
-const randBtn = document.getElementById("rand")!;
+const randBtn: HTMLButtonElement = document.querySelector("#rand")!;
 randBtn.addEventListener("click", () => {
   getRand(result);
 });
 
 // add Eventlistener to get degree
-const degBtn = document.getElementById("btnDeg")!;
+const degBtn: HTMLButtonElement = document.querySelector("#btnDeg")!;
 degBtn.addEventListener("click", () => {
   getDeg(result.value);
 });
 
 // add Eventlistener for dms
-const dmsBtn = document.getElementById("dms")!;
+const dmsBtn: HTMLButtonElement = document.querySelector("#dms")!;
 dmsBtn.addEventListener("click", () => {
   getDegreesToDMS(result.value);
 });
 
 // add EventListener for f-e
-const fixedtoExponent = document.getElementById("fe")!;
+const fixedtoExponent: HTMLButtonElement = document.querySelector("#fe")!;
 fixedtoExponent.addEventListener("click", () => {
   getFe(result.value);
 });
 
 // Memory buttons Eventlistener
-// Memory store functionality
-let memoryStoreBtn = document.getElementById("memoryStore")!;
-memoryStoreBtn.addEventListener("click", () => {
-  if (result.value != "") {
-    (document.getElementById("memoryClear") as HTMLButtonElement).disabled =
-      false;
-    (document.getElementById("memoryRecall") as HTMLButtonElement).disabled =
-      false;
-  }
-  memoryStore(result);
-});
-
-// Memory clear functionality
-let memoryClearBtn: HTMLButtonElement = document.querySelector("#memoryClear")!;
-memoryClearBtn.addEventListener("click", () => {
-  (document.getElementById("memoryClear") as HTMLButtonElement).disabled = true;
-  (document.getElementById("memoryRecall") as HTMLButtonElement).disabled =
-    true;
-  memoryClear();
-});
-
-// Memory recall functionality
-let memoryRecallBtn = document.getElementById("memoryRecall")!;
-memoryRecallBtn.addEventListener("click", () => {
-  memoryRecall(result);
-});
-
-// Memory addition functionality
-let memoryAdditionBtn = document.getElementById("memoryPlus")!;
-memoryAdditionBtn.addEventListener("click", () => {
-  memoryAddition(result);
-});
-
-// Memory subtraction functionality
-let memorySubtractBtn = document.getElementById("memoryMinus")!;
-memorySubtractBtn.addEventListener("click", () => {
-  memorySubtraction(result);
+const memoryButtons: NodeListOf<HTMLButtonElement> =
+  document.querySelectorAll(".memory-button");
+memoryButtons.forEach((button) => {
+  button.addEventListener("click", () => {
+    const buttonId: string = button.id;
+    switch (buttonId) {
+      case "memoryStore":
+        if (result.value != "") {
+          memoryStore(result);
+        }
+        break;
+      case "memoryClear":
+        memoryClear();
+        break;
+      case "memoryRecall":
+        memoryRecall(result);
+        break;
+      case "memoryPlus":
+        memoryOperation(result, "add");
+        break;
+      case "memoryMinus":
+        memoryOperation(result, "subtract");
+        break;
+      default:
+        break;
+    }
+  });
 });

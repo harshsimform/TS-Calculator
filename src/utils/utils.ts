@@ -6,7 +6,7 @@ export function calculate(input: string): void {
     if (input.includes("!")) {
       const num: number = parseInt(input.slice(0, -1));
       // need for the type guard on resultFact, since we are immediately converting it to a string using the toString() method
-      const resultFact = factorial(num).toString();
+      const resultFact: string = factorial(num).toString();
       // assign the calculated factorial value back to the input field
       const resultElem: HTMLInputElement = document.querySelector("#result")!;
       if (resultElem) {
@@ -77,9 +77,9 @@ export function calculate(input: string): void {
 const result: HTMLInputElement = document.querySelector("#result")!;
 
 // factorial function
-function factorial(num: number): number | string {
+function factorial(num: number): number | never {
   if (typeof num !== "number" || num < 0 || Math.floor(num) !== num) {
-    return "Malformed Expression";
+    throw new Error("Invalid input");
   }
   let result = 1;
   for (let i = 1; i <= num; i++) {
@@ -89,7 +89,7 @@ function factorial(num: number): number | string {
 }
 
 // function to calculate log
-function evaluateLog(input: string): number | string {
+function evaluateLog(input: string): number {
   // split the input value into the number before and after 'log'
   const [base, number] = input.split("log");
 
@@ -109,14 +109,13 @@ function evaluateLog(input: string): number | string {
 }
 
 // function to calculate Natural Log
-function evaluateNaturalLog(input: string): number | string {
+function evaluateNaturalLog(input: string): number | never {
   const match = input.match(/^(\d*)ln(.+)$/);
   let coefficient = 1;
   let x = parseFloat(input);
 
   if (!match) {
-    let resultNaturalLog = "Invalid input";
-    return resultNaturalLog;
+    throw new Error("Invalid input");
   }
   coefficient = match[1] ? parseInt(match[1]) : 1;
   // add null check and default value of 0
@@ -126,31 +125,31 @@ function evaluateNaturalLog(input: string): number | string {
 }
 
 // function to calculate root
-function calculateRoot(input: string): number | string {
+function calculateRoot(input: string): number | never {
   const parts: string[] = input.split("√");
   // add null check and default value of 0
   const x: number = parseFloat(parts[1] || "0");
 
   if (isNaN(x)) {
-    return "Invalid input";
+    throw new Error("Invalid input");
   } else if (parts.length === 1) {
     return Math.sqrt(x);
   } else if (parts.length === 2) {
     // add null check and default value of 0
     const y: number = parseFloat(parts[0] || "0");
     if (isNaN(y)) {
-      return "Invalid input";
+      throw new Error("Invalid input");
     } else {
       return Math.pow(x, 1 / y);
     }
   } else {
-    return "Invalid input";
+    throw new Error("Invalid input");
   }
 }
 
 // function to calculate Square root
 export function calculateSqrt(input: string): string {
-  const num = parseFloat(input);
+  const num: number = parseFloat(input);
   if (isNaN(num)) {
     return "";
   } else {
@@ -160,7 +159,7 @@ export function calculateSqrt(input: string): string {
 
 // function to calculate cube root
 export function calculateCubeSqrt(input: string): string {
-  const num = parseFloat(input);
+  const num: number = parseFloat(input);
   if (isNaN(num)) {
     return "";
   } else {
@@ -170,7 +169,7 @@ export function calculateCubeSqrt(input: string): string {
 
 // function to generate absolute value
 export function getAbsolute(input: string): string {
-  const num = parseFloat(input);
+  const num: number = parseFloat(input);
   if (isNaN(num)) {
     return "";
   } else {
@@ -180,7 +179,7 @@ export function getAbsolute(input: string): string {
 
 // function to generate Floor value
 export function getFloor(input: string): string {
-  const num = parseFloat(input);
+  const num: number = parseFloat(input);
   if (isNaN(num)) {
     return "";
   } else {
@@ -190,7 +189,7 @@ export function getFloor(input: string): string {
 
 // function to generate Ceil value
 export function getCeil(input: string): string {
-  const num = parseFloat(input);
+  const num: number = parseFloat(input);
   if (isNaN(num)) {
     return "";
   } else {
@@ -200,7 +199,7 @@ export function getCeil(input: string): string {
 
 // function to toggle operand sign
 export function getPlusbyMinus(input: HTMLInputElement) {
-  let userStr = input.value.toString();
+  let userStr: string = input.value.toString();
   if (userStr.charAt(0) === "-") {
     input.value = input.value.substring(1, input.value.length);
   } else {
@@ -210,7 +209,7 @@ export function getPlusbyMinus(input: HTMLInputElement) {
 
 // check which unit of angle is selected by user
 let unitOfAngle: string = "DEG";
-const buttonOfUnit = document.getElementById("deg")!;
+const buttonOfUnit: HTMLElement = document.getElementById("deg")!;
 buttonOfUnit.addEventListener("click", () => {
   unitOfAngle = unitOfAngle === "DEG" ? "RAD" : "DEG";
   buttonOfUnit.innerHTML = unitOfAngle;
@@ -219,58 +218,58 @@ buttonOfUnit.addEventListener("click", () => {
 // common function to calculate all Trigonometry functions
 function calculateTrigValue(input: string, trigFunc: (x: number) => number) {
   if (unitOfAngle === "RAD") {
-    let radians = parseFloat(input);
+    let radians: number = parseFloat(input);
     result.value = trigFunc(radians).toString();
   } else if (unitOfAngle === "DEG") {
-    let degree = parseFloat(input) * (Math.PI / 180);
+    let degree: number = parseFloat(input) * (Math.PI / 180);
     result.value = trigFunc(degree).toString();
   }
 }
 
 // function for get sine value
-export function getSine(input: string) {
+export function getSine(input: string): void | never {
   if (!input) {
-    return "Invalid input";
+    throw new Error("Invalid input");
   }
   return calculateTrigValue(input, Math.sin);
 }
 
 // function for get cos value
-export function getCos(input: string) {
+export function getCos(input: string): void | never {
   if (!input) {
-    return "Invalid input";
+    throw new Error("Invalid input");
   }
   return calculateTrigValue(input, Math.cos);
 }
 
 // function for get tan value
-export function getTan(input: string) {
+export function getTan(input: string): void | never {
   if (!input) {
-    return "Invalid input";
+    throw new Error("Invalid input");
   }
   return calculateTrigValue(input, Math.tan);
 }
 
 // function for get sec value
-export function getSec(input: string) {
+export function getSec(input: string): void | never {
   if (!input) {
-    return "Invalid input";
+    throw new Error("Invalid input");
   }
   return calculateTrigValue(input, (radians) => 1 / Math.cos(radians));
 }
 
 // function for get cosec value
-export function getCsc(input: string) {
+export function getCsc(input: string): void | never {
   if (!input) {
-    return "Invalid input";
+    throw new Error("Invalid input");
   }
   return calculateTrigValue(input, (radians) => 1 / Math.sin(radians));
 }
 
 // function for get cot value
-export function getCot(input: string) {
+export function getCot(input: string): void | never {
   if (!input) {
-    return "Invalid input";
+    throw new Error("Invalid input");
   }
   return calculateTrigValue(input, (radians) => 1 / Math.tan(radians));
 }
@@ -283,7 +282,7 @@ export function getRand(input: HTMLInputElement) {
 // function to get degree
 export function getDeg(input: string) {
   if (unitOfAngle === "RAD") {
-    let deg = Number(input) * (180 / Math.PI);
+    let deg: number = Number(input) * (180 / Math.PI);
     result.value = deg.toString();
   } else {
     result.value = (Number(result.value) / 0.0147).toString();
@@ -293,9 +292,9 @@ export function getDeg(input: string) {
 // function to get Degree to DMS
 export function getDegreesToDMS(input: string) {
   if (unitOfAngle === "DEG") {
-    let d = Math.floor(Number(input));
-    let m = Math.floor((Number(input) - d) * 60);
-    let s = ((Number(input) - d - m / 60) * 3600).toFixed(2);
+    let d: number = Math.floor(Number(input));
+    let m: number = Math.floor((Number(input) - d) * 60);
+    let s: string = ((Number(input) - d - m / 60) * 3600).toFixed(2);
     if (s == "60") {
       m++;
       s = "0";
@@ -321,36 +320,53 @@ export function getFe(input: string) {
   result.value = input;
 }
 
+function getMemoryValue(): number {
+  return parseInt(document.getElementById("memoryShow")!.innerHTML);
+}
+
+// function for memory addition and subtraction
+export function memoryOperation(
+  input: HTMLInputElement,
+  operation: "add" | "subtract"
+) {
+  const inputVal: number = parseInt(input.value);
+  if (!isNaN(inputVal)) {
+    let memoryVal: number = getMemoryValue();
+    if (operation === "add") {
+      memoryVal += inputVal;
+    } else if (operation === "subtract") {
+      memoryVal -= inputVal;
+    }
+    document.getElementById("memoryShow")!.innerHTML = memoryVal.toString();
+  }
+  let memoryVal: HTMLElement = document.querySelector("#memoryShow")!;
+
+  if (memoryVal.innerHTML >= "1" || memoryVal.innerHTML <= "1") {
+    (document.getElementById("memoryClear") as HTMLButtonElement).disabled =
+      false;
+    (document.getElementById("memoryRecall") as HTMLButtonElement).disabled =
+      false;
+  }
+}
+
+function updateMemoryButtons() {
+  let memoryVal: HTMLElement = document.querySelector("#memoryShow")!;
+  (document.getElementById("memoryClear") as HTMLButtonElement).disabled =
+    memoryVal.innerHTML === "0";
+  (document.getElementById("memoryRecall") as HTMLButtonElement).disabled =
+    memoryVal.innerHTML === "0";
+}
+
 // function to store memory
 export function memoryStore(input: HTMLInputElement) {
   document.getElementById("memoryShow")!.innerHTML = input.value || "0";
+  updateMemoryButtons();
 }
 
 // function to clear memory
 export function memoryClear() {
   document.getElementById("memoryShow")!.innerHTML = "" || "0";
-}
-
-function getMemoryValue() {
-  return parseInt(document.getElementById("memoryShow")!.innerHTML);
-}
-
-// function for memory addition
-export function memoryAddition(input: HTMLInputElement) {
-  const inputVal = parseInt(input.value);
-  if (!isNaN(inputVal)) {
-    let showResult = (getMemoryValue() + inputVal).toString();
-    document.getElementById("memoryShow")!.innerHTML = showResult;
-  }
-}
-
-// function for memory subtraction
-export function memorySubtraction(input: HTMLInputElement) {
-  const inputVal = parseInt(input.value);
-  if (!isNaN(inputVal)) {
-    let showResult = (getMemoryValue() - inputVal).toString();
-    document.getElementById("memoryShow")!.innerHTML = showResult;
-  }
+  updateMemoryButtons();
 }
 
 // function for memory recall
